@@ -26,4 +26,9 @@ public class TrainSensorImpl implements TrainSensor {
 		controller.setSpeedLimit(speedLimit);
 	}
 
+	@Override
+	public String toString(){
+		return "SENSOR";
+	}
+
 }
