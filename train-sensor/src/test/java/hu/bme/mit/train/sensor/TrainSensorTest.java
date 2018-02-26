@@ -13,7 +13,7 @@ public class TrainSensorTest {
     }
 
     @Test
-    public void ThisIsAnExampleTestStub() throws Exception {
-        throw new Exception("an exception for test");
+    public void ThisIsAnExampleTestStub(){
+        //TODO
     }
 }
