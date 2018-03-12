@@ -12,6 +12,8 @@ public class TrainSystem {
 	private TrainController controller = new TrainControllerImpl();
 	private TrainUser user = new TrainUserImpl(controller);
 	private TrainSensor sensor = new TrainSensorImpl(controller, user);
+	private Ticker ticker = new Ticker(controller);
+	private Thread tickerThread;
 
 	public TrainController getController() {
 		return controller;
@@ -23,6 +25,34 @@ public class TrainSystem {
 
 	public TrainUser getUser() {
 		return user;
+	}
+
+	public void startController(){
+		tickerThread = new Thread(ticker);
+		tickerThread.start();
+	}
+
+	private class Ticker implements Runnable{
+
+		private TrainController trainController;
+
+		public Ticker(TrainController trainController){
+			this.trainController = trainController;
+		}
+
+		private volatile boolean run = true;
+
+		@Override
+		public void run() {
+			try {
+				while (run) {
+					trainController.followSpeed();
+					Thread.sleep(100);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
